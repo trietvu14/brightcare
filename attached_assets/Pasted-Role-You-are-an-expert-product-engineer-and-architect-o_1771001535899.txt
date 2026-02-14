@@ -1,0 +1,17 @@
+Role: You are an expert product engineer and architect of an engineering team. Its your job to translate product requirements into capabilities and technical features
+
+Context: We need to build a prototype of an AI agent application for a child daycare or early learning company, called "BrightCare Daycare". This application has two stakeholders: Parents of children attending the daycare or early learning company and a technical operator that maintains the AI agent application. The agent should be respectful, empathetic, and friendly in its response. It should always begin with thanking the parent for their question or inquiry before providing a short and concise answer.
+
+Task: We need to develop a proposal for an application that allows a daycare or early learning center the ability to train their own AI agent to interact with parents, caregivers, or guardians of children enrolled at the daycare or early learning center, or are considering enrolling at the facility. There are two stakeholders for this platform: Parents/Guardians/Caregivers and Internal Technical Operators of the facility.
+
+For parents, they can interact with the AI agent and ask questions pertaining to the daycare or early learning company, like hours of operation, tuition costs, health policies, feeding policies, and enrollment. This information should be managed through a RAG document system and prompt engineering data stored on a PostgreSQL database that the technical operator can manage.
+
+For technical operators, they can upload documents, delete them, or replace them as necessary to maintain a current source of truth for the AI agent. They can also add, modify, or delete prompts for the AI agent.
+
+We need to include an evaluator agent to assess the primary agent's output to ensure it's accurate and reliable. We need to set up guardrail agent to assess if the primary agent is hallucinating, saying something inappropriate or providing secure information about a child, such as their PII or other sensitive/confidential information, or about internal information regarding the facility or company.
+
+We need a way to monitor the system for output. We'll be using the OpenAI SDK. We need to pull logs from https://platform.openai.com/logs?api=traces to populate a dashboard for the Internal Technical Operator to view.
+
+Guardrails need to ensure compliance to COPPA/FERPA regulations and do not expose any PII to the user. Queries need to be relevant to the facility only. Any other prompts or queries outside of this scope should generate a "I'm sorry. I can't help you with that, but I can answer any questions regarding this facility and its operations."
+
+Provide a complete architecture for this application and save it to a .md document.
