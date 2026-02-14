@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
@@ -93,6 +93,19 @@ function DocumentDialog({
       isActive: document?.isActive ?? true,
     },
   });
+
+  useEffect(() => {
+    if (open) {
+      form.reset({
+        title: document?.title || "",
+        content: document?.content || "",
+        category: document?.category || "general",
+        isActive: document?.isActive ?? true,
+      });
+      setUploadedFileName(null);
+      setPreUploadTitle("");
+    }
+  }, [open, document]);
 
   const uploadMutation = useMutation({
     mutationFn: async (file: File) => {
