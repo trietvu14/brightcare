@@ -1,10 +1,8 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import multer from "multer";
-import * as pdfParseModule from "pdf-parse";
+import pdfParse from "pdf-parse";
 import mammoth from "mammoth";
-
-const pdfParse = (pdfParseModule as any).default || pdfParseModule;
 import { storage } from "./storage";
 import { processMessage, processEphemeralMessage } from "./openai-agent";
 import { seedDatabase } from "./seed";
