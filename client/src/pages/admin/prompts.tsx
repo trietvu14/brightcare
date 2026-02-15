@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
@@ -84,6 +84,17 @@ function PromptDialog({
       isActive: prompt?.isActive ?? true,
     },
   });
+
+  useEffect(() => {
+    if (open) {
+      form.reset({
+        name: prompt?.name || "",
+        content: prompt?.content || "",
+        type: prompt?.type || "system",
+        isActive: prompt?.isActive ?? true,
+      });
+    }
+  }, [open, prompt]);
 
   const mutation = useMutation({
     mutationFn: async (values: PromptForm) => {
