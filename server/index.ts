@@ -35,11 +35,18 @@ if (isProduction && !process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET environment variable is required in production");
 }
 
+if (isProduction) {
+  app.set("trust proxy", 1);
+}
+
+const useSecureCookies = isProduction;
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "dev-only-brightcare-secret",
     resave: false,
     saveUninitialized: false,
+    proxy: isProduction,  // <- Make sure this has a comma!
     cookie: {
       secure: isProduction,
       httpOnly: true,

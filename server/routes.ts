@@ -288,7 +288,7 @@ export async function registerRoutes(
   // --- Trace Log Routes (Admin Only) ---
   app.get("/api/trace-logs", requireAdmin, async (req, res) => {
     try {
-      const limit = parseInt(req.query.limit as string) || 100;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : undefined;
       const logs = await storage.getTraceLogs(limit);
       res.json(logs);
     } catch (error: any) {

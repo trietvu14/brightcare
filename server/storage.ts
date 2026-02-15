@@ -37,7 +37,7 @@ export interface IStorage {
   getMessages(conversationId: number): Promise<Message[]>;
   createMessage(msg: InsertMessage): Promise<Message>;
 
-  getTraceLogs(limit?: number): Promise<TraceLog[]>;
+  getTraceLogs(limit?: number | undefined): Promise<TraceLog[]>;
   getTraceLogsByConversation(conversationId: number): Promise<TraceLog[]>;
   createTraceLog(log: InsertTraceLog): Promise<TraceLog>;
   getTraceStats(): Promise<{
@@ -154,8 +154,9 @@ export class DatabaseStorage implements IStorage {
     return created;
   }
 
-  async getTraceLogs(limit = 100): Promise<TraceLog[]> {
-    return db.select().from(traceLogs).orderBy(desc(traceLogs.createdAt)).limit(limit);
+  async getTraceLogs(limit?: number): Promise<TraceLog[]> {
+    const query = db.select().from(traceLogs).orderBy(desc(traceLogs.createdAt));
+    return limit ? query.limit(limit) : query;
   }
 
   async getTraceLogsByConversation(conversationId: number): Promise<TraceLog[]> {
